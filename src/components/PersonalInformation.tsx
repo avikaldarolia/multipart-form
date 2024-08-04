@@ -1,6 +1,11 @@
 import React from "react";
 
-const PersonalInformation = () => {
+interface PersonalInformationProps {
+	step: number;
+	setStep: (step: number) => void;
+}
+
+const PersonalInformation = ({ step, setStep }: PersonalInformationProps) => {
 	return (
 		<div className="py-8 w-11/12 mx-auto flex flex-col">
 			<p className="text-4xl font-bold text-blue-900">Personal info</p>
@@ -39,7 +44,10 @@ const PersonalInformation = () => {
 					id=""
 				/>
 			</div>
-			<button className="ml-auto rounded bg-blue-900 mt-16 text-white py-3 px-4 font-semibold tracking-wide">
+			<button
+				onClick={() => setStep(step + 1)}
+				type="submit"
+				className="ml-auto rounded bg-blue-900 mt-16 text-white py-3 px-4 font-semibold tracking-wide">
 				Next Step
 			</button>
 		</div>

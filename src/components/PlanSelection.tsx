@@ -1,7 +1,12 @@
 import React from "react";
 import plans from "../data/plans";
 
-const PlanSelection = () => {
+interface PlanSelectionProps {
+	step: number;
+	setStep: (step: number) => void;
+}
+
+const PlanSelection = ({ step, setStep }: PlanSelectionProps) => {
 	return (
 		<div className="py-8 w-11/12 mx-auto flex flex-col">
 			<p className="text-4xl font-bold text-blue-900">Select your plan</p>
@@ -41,10 +46,16 @@ const PlanSelection = () => {
 			</div>
 
 			<div className="w-full flex justify-between items-center mt-16">
-				<button className="rounded bg-gray-400 text-white py-3 px-4 font-semibold tracking-wide">
+				<button
+					onClick={() => setStep(step - 1)}
+					type="submit"
+					className="rounded bg-gray-400 text-white py-3 px-4 font-semibold tracking-wide">
 					Go Back
 				</button>
-				<button className="rounded bg-blue-900 text-white py-3 px-4 font-semibold tracking-wide">
+				<button
+					onClick={() => setStep(step + 1)}
+					type="submit"
+					className="rounded bg-blue-900 text-white py-3 px-4 font-semibold tracking-wide">
 					Next Step
 				</button>
 			</div>

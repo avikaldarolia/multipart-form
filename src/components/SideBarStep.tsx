@@ -1,12 +1,19 @@
 import React from "react";
 
 interface SidebarsStepProps {
+	currentStep: number;
 	stepNumber: number;
 	isActive: boolean;
 	stepName: string;
 }
 
-const SideBarStep = ({ stepNumber, isActive, stepName }: SidebarsStepProps) => {
+const SideBarStep = ({
+	currentStep,
+	stepNumber,
+	isActive,
+	stepName,
+}: SidebarsStepProps) => {
+	isActive = currentStep >= stepNumber;
 	return (
 		<>
 			<div className="flex w-10/12 mx-auto my-8 cursor-pointer">
