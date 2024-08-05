@@ -8,13 +8,15 @@ interface PickAddOnsProps {
 
 const PickAddOns = ({ step, setStep }: PickAddOnsProps) => {
 	return (
-		<div className="py-8 w-11/12 mx-auto flex flex-col">
-			<p className="text-4xl font-bold text-blue-900">Pick add-ons</p>
-			<p className="my-4 text-gray-500">
+		<div className="md:py-8 w-11/12 md:p-0 p-5 mx-auto flex flex-col">
+			<p className="text-3xl md:text-4xl font-bold text-blue-900">
+				Pick add-ons
+			</p>
+			<p className="my-2 md:my-4 text-gray-500">
 				Add-ons help enhance your gaming experience.
 			</p>
 
-			<div className="my-8">
+			<div className="my-2 md:my-8">
 				{addons.map((addon) => (
 					<AddOn
 						key={addon.id}
@@ -28,17 +30,17 @@ const PickAddOns = ({ step, setStep }: PickAddOnsProps) => {
 				<AddOn /> */}
 			</div>
 
-			<div className="w-full flex justify-between items-center mt-10">
+			<div className="w-full flex justify-between items-center mt-6 md:mt-10">
 				<button
 					onClick={() => setStep(step - 1)}
 					type="submit"
-					className="rounded bg-gray-400 text-white py-3 px-4 font-semibold tracking-wide">
+					className="back-btn">
 					Go Back
 				</button>
 				<button
 					onClick={() => setStep(step + 1)}
 					type="submit"
-					className="rounded bg-blue-900 text-white py-3 px-4 font-semibold tracking-wide">
+					className="next-btn">
 					Next Step
 				</button>
 			</div>
@@ -54,10 +56,10 @@ interface AddOnProps {
 
 const AddOn = ({ name, description, price }: AddOnProps) => {
 	return (
-		<div className="w-full p-3 my-6 flex shadow items-center cursor-pointer justify-between rounded-xl  border-2 hover:border-blue-600 outline-gray-400">
+		<div className="w-full p-3 my-3 md:my-6 flex shadown-sm md:shadow items-center cursor-pointer justify-between rounded-xl border-2 hover:border-blue-600 outline-gray-400">
 			<input type="checkbox" name="" id="" />
-			<div className="flex-1 flex-col items-center mx-4">
-				<p className="text-blue-900 font-semibold text-lg">{name}</p>
+			<div className="flex-1 flex-col items-center mx-4 text-sm md:text-lg">
+				<p className="text-blue-900 font-semibold">{name}</p>
 				<p className="text-gray-500">{description}</p>
 			</div>
 			<div className="text-blue-900">+${price}/mo</div>

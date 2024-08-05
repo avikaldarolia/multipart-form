@@ -6,13 +6,15 @@ interface FinishingUpProps {
 
 const FinishingUp = ({ step, setStep }: FinishingUpProps) => {
 	return (
-		<div className="py-8 w-11/12 mx-auto flex flex-col">
-			<p className="text-4xl font-bold text-blue-900">Finishing up</p>
-			<p className="my-4 text-gray-500">
+		<div className="md:py-8 w-11/12 md:p-0 p-5 mx-auto flex flex-col">
+			<p className="text-3xl md:text-4xl font-bold text-blue-900">
+				Finishing up
+			</p>
+			<p className="my-2 md:my-4 text-gray-500">
 				Double-check everthing looks OK before confirming.
 			</p>
 
-			<div className="my-8">
+			<div className="my-2 md:my-8">
 				<div className="w-full flex flex-col">
 					<div className="flex text-lg justify-between font-semibold text-blue-900">
 						<p className="">Pro (monthly)</p>
@@ -33,22 +35,22 @@ const FinishingUp = ({ step, setStep }: FinishingUpProps) => {
 						<p className="text-blue-900">+$2/mo</p>
 					</div>
 
-					<div className="flex justify-between mt-32">
-						<p className="text-lg text-gray-500">Total (per month)</p>
-						<p className="text-violet-700 text-xl font-bold">$20/mo</p>
+					<div className="flex justify-between mt-12 md:mt-32 md:text-lg">
+						<p className=" text-gray-500">Total (per month)</p>
+						<p className="text-violet-700 font-bold">$20/mo</p>
 					</div>
 
-					<div className="w-full flex justify-between items-center mt-10">
+					<div className="w-full flex justify-between items-center mt-6 md:mt-10">
 						<button
 							onClick={() => setStep(step - 1)}
 							type="submit"
-							className="rounded bg-gray-400 text-white py-3 px-4 font-semibold tracking-wide">
+							className="rounded bg-gray-400 text-white py-2 px-3 md:py-3 md:px-4 md:font-semibold tracking-wide">
 							Go Back
 						</button>
 						<button
 							onClick={() => setStep(step + 1)}
 							type="submit"
-							className="rounded bg-blue-900 text-white py-3 px-4 font-semibold tracking-wide">
+							className="rounded bg-blue-900 text-white py-2 px-3 md:py-3 md:px-4 md:font-semibold tracking-wide">
 							Next Step
 						</button>
 					</div>

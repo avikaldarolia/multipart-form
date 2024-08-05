@@ -8,13 +8,15 @@ interface PlanSelectionProps {
 
 const PlanSelection = ({ step, setStep }: PlanSelectionProps) => {
 	return (
-		<div className="py-8 w-11/12 mx-auto flex flex-col">
-			<p className="text-4xl font-bold text-blue-900">Select your plan</p>
-			<p className="my-4 text-gray-500">
+		<div className="md:py-8 w-11/12 md:p-0 p-5 mx-auto flex flex-col">
+			<p className="text-3xl md:text-4xl font-bold text-blue-900">
+				Select your plan
+			</p>
+			<p className="my-2 md:my-4 text-gray-500">
 				You have the option of monthly or yearly billing.
 			</p>
 
-			<div className="grid grid-cols-3 gap-6 justify-between my-12">
+			<div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-6 justify-between my-2 md:my-12">
 				{plans.map((plan: any) => (
 					<PlanChoice
 						icon={plan.icon}
@@ -27,8 +29,8 @@ const PlanSelection = ({ step, setStep }: PlanSelectionProps) => {
 				))}
 			</div>
 
-			<div className="mx-auto flex items-center justify-center gap-4 relative">
-				<span className="text-xl">Monthly</span>
+			<div className="mx-auto flex md:text-xl items-center justify-center gap-4 relative">
+				<span>Monthly</span>
 				{/* <label
 					htmlFor=""
 					className="bg-gray-100 cursor-pointer relative w-20 h-9 rounded-full">
@@ -42,20 +44,20 @@ const PlanSelection = ({ step, setStep }: PlanSelectionProps) => {
 				<input type="checkbox" name="" id="" />
 				{/* <span className="w-7 h-7 right-7 absolute rounded-full transform transition-transform bg-gray-200" /> */}
 
-				<span className="text-xl">Yearly</span>
+				<span>Yearly</span>
 			</div>
 
-			<div className="w-full flex justify-between items-center mt-16">
+			<div className="w-full flex justify-between items-center mt-8 md:mt-16">
 				<button
 					onClick={() => setStep(step - 1)}
 					type="submit"
-					className="rounded bg-gray-400 text-white py-3 px-4 font-semibold tracking-wide">
+					className="back-btn">
 					Go Back
 				</button>
 				<button
 					onClick={() => setStep(step + 1)}
 					type="submit"
-					className="rounded bg-blue-900 text-white py-3 px-4 font-semibold tracking-wide">
+					className="next-btn">
 					Next Step
 				</button>
 			</div>
@@ -83,14 +85,22 @@ const PlanChoice = ({
 	return (
 		<>
 			<div
-				className={`w-full flex flex-col border-2 border-gray-300 p-4 rounded-lg cursor-pointer hover:opacity-80 ${
+				className={`w-full flex md:flex-col md:items-start hover:border-blue-800 items-center border-2 border-gray-300 p-4 md:p-4 rounded-lg cursor-pointer hover:opacity-80 ${
 					isSelected && "border-blue-800"
 				}`}>
-				<img className="w-14 h-14 rounded-full" src={icon} alt="" />
-				<p className="text-blue-900 font-semibold text-lg mt-16">{planName}</p>
-				<p className="text-gray-400 font-medium">
-					${monthly ? priceMonthly : priceYearly}/{monthly ? "mo" : "yr"}
-				</p>
+				<img
+					className="w-10 md:w-14 h-10 md:h-14 rounded-full"
+					src={icon}
+					alt=""
+				/>
+				<div className="flex flex-col justify-center mx-4 md:mx-0">
+					<p className="text-blue-900 font-semibold text-lg md:mt-12">
+						{planName}
+					</p>
+					<p className="text-gray-500 font-medium">
+						${monthly ? priceMonthly : priceYearly}/{monthly ? "mo" : "yr"}
+					</p>
+				</div>
 			</div>
 		</>
 	);

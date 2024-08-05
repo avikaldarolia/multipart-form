@@ -7,12 +7,14 @@ interface PersonalInformationProps {
 
 const PersonalInformation = ({ step, setStep }: PersonalInformationProps) => {
 	return (
-		<div className="py-8 w-11/12 mx-auto flex flex-col">
-			<p className="text-4xl font-bold text-blue-900">Personal info</p>
-			<p className="my-4 text-gray-500">
+		<div className="md:py-8 w-11/12 md:p-0 p-5 mx-auto flex flex-col">
+			<p className="text-3xl md:text-4xl font-bold text-blue-900">
+				Personal info
+			</p>
+			<p className="my-2 md:my-4 text-gray-500">
 				Please provide your name, email address, and phone number.
 			</p>
-			<div className="mt-10 flex flex-col">
+			<div className="mt-2 md:mt-10 flex flex-col">
 				<label className="form-label" htmlFor="name">
 					Name
 				</label>
@@ -47,7 +49,7 @@ const PersonalInformation = ({ step, setStep }: PersonalInformationProps) => {
 			<button
 				onClick={() => setStep(step + 1)}
 				type="submit"
-				className="ml-auto rounded bg-blue-900 mt-16 text-white py-3 px-4 font-semibold tracking-wide">
+				className="ml-auto rounded bg-blue-900 mt-8 md:mt-16 text-white py-3 px-4 font-semibold tracking-wide">
 				Next Step
 			</button>
 		</div>

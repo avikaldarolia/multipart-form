@@ -9,12 +9,21 @@ body {
 		sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	@apply bg-blue-100;
 }
 
 .form-label {
-	@apply block text-blue-900 mb-2 font-medium;
+	@apply block text-blue-900 mb-1 md:mb-2 font-medium;
 }
 
 .form-input {
-	@apply border border-slate-300 py-3 px-4 rounded outline-gray-300 w-full mb-6;
+	@apply border border-slate-300 py-2 md:py-3 px-2 md:px-4 rounded outline-gray-300 w-full mb-3 md:mb-6 focus:outline-blue-800;
+}
+
+.back-btn {
+	@apply rounded bg-gray-400 text-white py-2 px-3 md:py-3 md:px-4 md:font-semibold tracking-wide;
+}
+
+.next-btn {
+	@apply rounded bg-blue-900 text-white py-2 px-3 md:py-3 md:px-4 md:font-semibold tracking-wide;
 }
