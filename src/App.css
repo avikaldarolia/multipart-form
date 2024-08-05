@@ -1,0 +1,16 @@
+.sidebar {
+	background: url("./assets/bg-sidebar-desktop.svg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+}
+
+@media (max-width: 765px) {
+	.sidebar {
+		background: url("./assets/bg-sidebar-mobile.svg");
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+		z-index: -1;
+	}
+}
