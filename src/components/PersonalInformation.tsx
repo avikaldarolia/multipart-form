@@ -1,4 +1,5 @@
 import React from "react";
+import { get, useFormContext } from "react-hook-form";
 
 interface PersonalInformationProps {
 	step: number;
@@ -6,6 +7,20 @@ interface PersonalInformationProps {
 }
 
 const PersonalInformation = ({ step, setStep }: PersonalInformationProps) => {
+	const {
+		register,
+		trigger,
+		formState: { errors },
+	} = useFormContext();
+
+	const onNext = async () => {
+		const isValid = await trigger("stepOne");
+
+		if (isValid) {
+			setStep(step + 1);
+		}
+	};
+
 	return (
 		<div className="md:py-8 w-11/12 md:p-0 p-5 mx-auto flex flex-col">
 			<p className="text-3xl md:text-4xl font-bold text-blue-900">
@@ -19,22 +34,27 @@ const PersonalInformation = ({ step, setStep }: PersonalInformationProps) => {
 					Name
 				</label>
 				<input
+					{...register("stepOne.name")}
 					className="form-input"
 					placeholder="e.g. Avikal Darolia"
 					type="text"
-					name="name"
-					id=""
 				/>
+				{get(errors, "stepOne.name.message") && (
+					<p className="error">{get(errors, "stepOne.name.message")}</p>
+				)}
+
 				<label className="form-label" htmlFor="email">
 					Email
 				</label>
 				<input
 					className="form-input"
 					placeholder="e.g. abcdef@lorem.com"
-					type="text"
-					name="Email"
-					id=""
+					type="email"
+					{...register("stepOne.email")}
 				/>
+				{get(errors, "stepOne.email.message") && (
+					<p className="error">{get(errors, "stepOne.email.message")}</p>
+				)}
 				<label className="form-label" htmlFor="phone">
 					Phone Number
 				</label>
@@ -42,12 +62,14 @@ const PersonalInformation = ({ step, setStep }: PersonalInformationProps) => {
 					className="form-input"
 					placeholder="e.g. 1234567890"
 					type="text"
-					name="phone"
-					id=""
+					{...register("stepOne.phone")}
 				/>
+				{get(errors, "stepOne.phone.message") && (
+					<p className="error">{get(errors, "stepOne.phone.message")}</p>
+				)}
 			</div>
 			<button
-				onClick={() => setStep(step + 1)}
+				onClick={onNext}
 				type="submit"
 				className="ml-auto rounded bg-blue-900 mt-8 md:mt-16 text-white py-3 px-4 font-semibold tracking-wide">
 				Next Step

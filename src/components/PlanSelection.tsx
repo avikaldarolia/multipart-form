@@ -1,12 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import plans from "../data/plans";
+import { get, useFormContext } from "react-hook-form";
 
 interface PlanSelectionProps {
 	step: number;
 	setStep: (step: number) => void;
 }
 
+interface Plan {
+	id: number;
+	plan: string;
+	price: number;
+	monthly: boolean;
+}
+
 const PlanSelection = ({ step, setStep }: PlanSelectionProps) => {
+	const [isMonthly, setIsMonthly] = useState(true);
+	const [selectedPlan, setSelectedPlan] = useState<Plan | undefined>();
+	const {
+		register,
+		trigger,
+		setValue,
+		formState: { errors },
+	} = useFormContext();
+
+	useEffect(() => {
+		if (selectedPlan) {
+			setValue("stepTwo.planName", selectedPlan.plan);
+			setValue("stepTwo.planPrice", selectedPlan.price);
+		}
+		setValue("stepTwo.monthly", isMonthly);
+	}, [selectedPlan, isMonthly, setValue]);
+
+	const onNext = async () => {
+		const isValid = await trigger("stepTwo");
+		console.log(isValid);
+		console.log(errors);
+
+		if (isValid) {
+			setStep(step + 1);
+		}
+	};
+
 	return (
 		<div className="md:py-8 w-11/12 md:p-0 p-5 mx-auto flex flex-col">
 			<p className="text-3xl md:text-4xl font-bold text-blue-900">
@@ -19,34 +54,33 @@ const PlanSelection = ({ step, setStep }: PlanSelectionProps) => {
 			<div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-6 justify-between my-2 md:my-12">
 				{plans.map((plan: any) => (
 					<PlanChoice
+						key={plan.id}
+						id={plan.id}
 						icon={plan.icon}
 						planName={plan.plan}
 						priceMonthly={plan.priceMonthly}
 						priceYearly={plan.priceYearly}
-						monthly={true}
-						isSelected={false}
+						monthly={isMonthly}
+						isSelected={selectedPlan?.id === plan.id ? true : false}
+						selectPlan={setSelectedPlan}
 					/>
 				))}
 			</div>
 
 			<div className="mx-auto flex md:text-xl items-center justify-center gap-4 relative">
 				<span>Monthly</span>
-				{/* <label
-					htmlFor=""
-					className="bg-gray-100 cursor-pointer relative w-20 h-9 rounded-full">
-					<input type="checkbox" className="sr-only peer" name="" id="" />
-					<span className="w-2/5 h-4/5 bg-blue-700 absolute top-1 left-1 rounded-full peer-checked:left-9"></span>
-				</label> */}
-				{/* <input
+				<input
 					type="checkbox"
-					className="appearance-none transition-colors cursor-pointer w-14 h-7 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-blue-500 bg-red-500"
-				/> */}
-				<input type="checkbox" name="" id="" />
-				{/* <span className="w-7 h-7 right-7 absolute rounded-full transform transition-transform bg-gray-200" /> */}
-
+					{...register("stepTwo.monthly")}
+					checked={isMonthly}
+					onChange={() => setIsMonthly(!isMonthly)}
+				/>
 				<span>Yearly</span>
 			</div>
 
+			{get(errors, "stepTwo.message") && (
+				<p className="error">{get(errors, "stepTwo.message")}</p>
+			)}
 			<div className="w-full flex justify-between items-center mt-8 md:mt-16">
 				<button
 					onClick={() => setStep(step - 1)}
@@ -54,10 +88,7 @@ const PlanSelection = ({ step, setStep }: PlanSelectionProps) => {
 					className="back-btn">
 					Go Back
 				</button>
-				<button
-					onClick={() => setStep(step + 1)}
-					type="submit"
-					className="next-btn">
+				<button onClick={onNext} type="submit" className="next-btn">
 					Next Step
 				</button>
 			</div>
@@ -66,28 +97,40 @@ const PlanSelection = ({ step, setStep }: PlanSelectionProps) => {
 };
 
 interface PlanChoiceProps {
+	id: string;
 	icon: any;
 	planName: string;
 	priceMonthly: number;
 	priceYearly: number;
 	monthly: boolean;
 	isSelected: boolean;
+	selectPlan: (plan: Plan) => void;
 }
 
 const PlanChoice = ({
+	id,
 	icon,
 	planName,
 	priceMonthly,
 	priceYearly,
 	monthly,
 	isSelected,
+	selectPlan,
 }: PlanChoiceProps) => {
 	return (
 		<>
 			<div
-				className={`w-full flex md:flex-col md:items-start hover:border-blue-800 items-center border-2 border-gray-300 p-4 md:p-4 rounded-lg cursor-pointer hover:opacity-80 ${
-					isSelected && "border-blue-800"
-				}`}>
+				className={`w-full flex md:flex-col md:items-start border-2 p-4 md:p-4 rounded-lg cursor-pointer ${
+					isSelected ? "border-blue-800" : "border-gray-300"
+				}`}
+				onClick={() =>
+					selectPlan({
+						id: parseInt(id),
+						plan: planName,
+						price: monthly ? priceMonthly : priceYearly,
+						monthly,
+					})
+				}>
 				<img
 					className="w-10 md:w-14 h-10 md:h-14 rounded-full"
 					src={icon}

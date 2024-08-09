@@ -7,9 +7,24 @@ import PlanSelection from "./components/PlanSelection";
 import PickAddOns from "./components/PickAddOns";
 import FinishingUp from "./components/FinishingUp";
 import ThankYou from "./components/ThankYou";
+import { FormProvider, useForm } from "react-hook-form";
+import { StepFormSchema, stepSchema } from "./schema/formSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 function App() {
 	const [step, setStep] = useState(1);
+
+	const methods = useForm<StepFormSchema>({
+		shouldUnregister: false,
+		mode: "onChange",
+		resolver: zodResolver(stepSchema),
+	});
+
+	const { handleSubmit } = methods;
+
+	const onSubmit = (data: StepFormSchema) => {
+		console.log(data);
+	};
 
 	const renderStep = (step: number) => {
 		switch (step) {
@@ -43,8 +58,12 @@ function App() {
 					/>
 				))}
 			</div>
-			{/* Step - 1 FORM */}
-			<div className="w-full my-4">{renderStep(step)}</div>
+
+			<div className="w-full my-4">
+				<FormProvider {...methods}>
+					<form onSubmit={handleSubmit(onSubmit)}>{renderStep(step)}</form>
+				</FormProvider>
+			</div>
 		</div>
 	);
 }

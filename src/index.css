@@ -27,3 +27,7 @@ body {
 .next-btn {
 	@apply rounded bg-blue-900 text-white py-2 px-3 md:py-3 md:px-4 md:font-semibold tracking-wide;
 }
+
+.error {
+	@apply text-sm text-red-500 -mt-2 mb-2;
+}
